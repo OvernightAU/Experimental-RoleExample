@@ -1,0 +1,8 @@
+{
+    "ModName": "Example Mod",
+    "ModDescription": "Test lol",
+    "ModImage": "resources/modLogo.png",
+    "ModVersion": "1.0.0",
+    "TestedAt": "2024.3.5",
+    "ScriptExecutionOrder": ["Main.cs", "TrolleyRole.cs"]
+}
