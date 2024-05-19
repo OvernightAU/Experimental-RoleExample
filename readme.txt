@@ -9,3 +9,8 @@ There are additional limitations related to the Roslyn compiler, so refer to the
 You can utilize Harmony Patching, but be aware that on older devices, its effectiveness may be limited.
 
 Your mod image resolution should be 512x512. If it exceeds this resolution, it might not fit properly within the mod box.
+
+When loading external assets, remember:
+There is a basic example of how to load files, you need to load them from the mod zip instead of using assembly load.
+You cant directly use System.IO, so use the zip wrapper.
+For faster code, you can preload them.
