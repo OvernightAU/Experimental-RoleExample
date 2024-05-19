@@ -1,14 +1,11 @@
-This is the mod template, here is some rules:
+This is the mod template, here is a basic usage guide:
 
-ONLY YOUR FIRST/DEFAULT SCRIPT FILE SHOULD HAVE USINGS.
-when i say first/default i mean the first in Script Execution Order.
-Theoretically you can do this, but i dont recommend since these usings will be global, and most surely you will
-end up duplicating them lol
+Only the first/default script file should have using directives. The "first/default" refers to the script executed initially.
+It's theoretically possible to use using directives throughout, but it's not recommended. Doing so would make them global,
+leading to duplication.
 
-There is absolutely more limitations related to Rosyln compiler, but i cant list all of them here, so read their docs if
-you are having trouble.
+There are additional limitations related to the Roslyn compiler, so refer to their documentation if you encounter difficulties.
 
-You can use Harmony Patching, but in older devices, the chance for it to fully work is low.
+You can utilize Harmony Patching, but be aware that on older devices, its effectiveness may be limited.
 
-Your mod image resolution should be 000x000 (replace number later), if it isn't, it will probably be bigger
-than the mod box itself
+Your mod image resolution should be 512x512. If it exceeds this resolution, it might not fit properly within the mod box.
