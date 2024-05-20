@@ -73,6 +73,7 @@ public class TrolleyRole : RoleBehaviour
 
     public IEnumerator DespawnFreeplay()
     {
+        SoundManager.Instance.PlaySound(DynamicCode.clip, false);
         AnalogGlitch analogGlitch = Camera.main.GetComponent<AnalogGlitch>();
         analogGlitch.enabled = true;
         analogGlitch.scanLineJitter = 0.05f;
