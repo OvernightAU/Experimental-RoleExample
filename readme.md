@@ -24,12 +24,31 @@ This document provides a basic guide for using the mod template effectively. Ple
 - Ensure your mod image resolution is **512x512** pixels.
   - If the image exceeds this resolution, it might not fit properly within the mod box.
 
-### Loading External Assets
+### Loading Mod Assets
 
-- When loading external assets, remember the following:
-  - You need to load files from the mod zip instead of using assembly load.
-  - Direct use of System.IO is not allowed, so use the zip wrapper provided.
-  - For faster code execution, consider preloading your assets.
+When loading mod assets, follow these guidelines:
+
+- **Use the Correct Path Method**:
+  - Instead of using System.IO, use `ModsManager.Instance.GetPathFromMod(Paths.folderName, "insert path")` to get the path to your mod asset.
+  - This method is necessary because direct use of System.IO is not allowed.
+
+- **Reading Files**:
+  - You cannot use the `File` class to read the file bytes directly.
+  - To read a file as a string, use `ModsManager.Instance.ReadFromModSTR(Paths.folderName, "insert path")`.
+  - To read a file as a byte array, use `ModsManager.Instance.ReadFromMod(Paths.folderName, "insert path")`.
+
+- **Example**
+```
+// String :
+string fromFile = ModsManager.Instance.ReadFromModSTR(Paths.folderName, "resources/targetFile.txt");
+UnityEngine.Debug.Log(fromFile);
+
+// Bytes :
+byte[] fileBytes = ModsManager.Instance.ReadFromMod(Paths.folderName, "resources/targetFile.bin");
+UnityEngine.Debug.Log($"File bytes length: {fileBytes.Length}");
+```
+
+By following these methods, you can ensure your mod assets are loaded correctly and efficiently within the limitations of the mod.
 
 ## Contribution
 
