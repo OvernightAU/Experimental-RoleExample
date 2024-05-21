@@ -1,16 +1,42 @@
-This is the mod template, here is a basic usage guide:
+# Mod Template Usage Guide
 
-Only the first/default script file should have using directives. The "first/default" refers to the script executed initially.
-It's theoretically possible to use using directives throughout, but it's not recommended. Doing so would make them global,
-leading to duplication.
+## Basic Usage Guide
 
-There are additional limitations related to the Roslyn compiler, so refer to their documentation if you encounter difficulties.
+This document provides a basic guide for using the mod template effectively. Please read through it carefully to ensure you understand the key points and best practices.
 
-You can utilize Harmony Patching, but be aware that on older devices, its effectiveness may be limited.
+### Using Directives
 
-Your mod image resolution should be 512x512. If it exceeds this resolution, it might not fit properly within the mod box.
+- **Only the first/default script file should have using directives.**
+  - The "first/default" script refers to the one executed initially.
+  - It's possible to use using directives throughout all scripts, but this is not recommended.
+  - Using directives globally can lead to duplication and other issues.
 
-When loading external assets, remember:
-There is a basic example of how to load files, you need to load them from the mod zip instead of using assembly load.
-You cant directly use System.IO, so use the zip wrapper.
-For faster code, you can preload them.
+### Roslyn Compiler Limitations
+
+- There are additional limitations related to the Roslyn compiler.
+- If you encounter difficulties, please refer to the Roslyn documentation for detailed information and troubleshooting.
+
+### Harmony Patching
+
+- You can utilize Harmony Patching in your mod.
+- Be aware that on older devices, Harmony Patching may have limited effectiveness.
+
+### Mod Image Resolution
+
+- Ensure your mod image resolution is **512x512** pixels.
+  - If the image exceeds this resolution, it might not fit properly within the mod box.
+
+### Loading External Assets
+
+- When loading external assets, remember the following:
+  - You need to load files from the mod zip instead of using assembly load.
+  - Direct use of System.IO is not allowed, so use the zip wrapper provided.
+  - For faster code execution, consider preloading your assets.
+
+## Contribution
+
+Feel free to contribute to this guide or the mod template itself. Contributions help improve the quality and usability for everyone.
+
+---
+
+Thank you for using the mod template! If you have any questions or need further assistance, please don't hesitate to ask.
