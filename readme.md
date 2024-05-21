@@ -7,7 +7,7 @@ This document provides a basic guide for using the mod template effectively. Ple
 ### Using Directives
 
 - **Only the first/default script file should have using directives.**
-  - The "first/default" script refers to the one first one in "ScriptExecutionOrder" list in json
+  - The "first/default" script refers to the first one in "ScriptExecutionOrder" list in json
 
 ### Roslyn Compiler Limitations
 
