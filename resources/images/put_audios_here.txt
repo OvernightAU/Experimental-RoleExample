@@ -1,0 +1,1 @@
+JPEG, JPG, PNG and other image types are supported. Needs Testing
