@@ -36,9 +36,7 @@ public class BomberRole : RoleBehaviour
         //If the role can vent
         CanVent = false;
 
-        //Add optional sounds (WARNING: Only wav files are supported for now)
-        //If your audio is too quick or too slow, try changing the second argument between the numbers:
-        //2, 4, 6, 8
+        // In this case i'm referencing preloaded the audio.
         explosion = DynamicCode.clip;
 
         //load your sprite
