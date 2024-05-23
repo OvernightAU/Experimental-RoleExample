@@ -41,6 +41,7 @@ public class DynamicCode
 
     internal void LoadKanyeWest()
     {
+        return; // Block for now
         string imagePath = ModsManager.Instance.GetPathFromMod(Paths.folderName, "resources/modLogo.png");
         GameObject logo = GameObject.Find("bannerLogo_AmongUs");
         logo.GetComponent<SpriteRenderer>().sprite = ImageUtils.LoadNewSprite(imagePath, 80f, SpriteMeshType.FullRect);
