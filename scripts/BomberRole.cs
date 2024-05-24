@@ -36,6 +36,9 @@ public class BomberRole : RoleBehaviour
         //If the role can vent
         CanVent = false;
 
+        //If the role can sabotage
+        CanSabotage = true;
+
         // In this case i'm referencing preloaded the audio.
         explosion = DynamicCode.clip;
 
