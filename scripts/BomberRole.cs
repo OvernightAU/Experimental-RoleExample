@@ -256,13 +256,7 @@ public class BomberRole : RoleBehaviour
         digitalGlitch.intensity = 0f;
         digitalGlitch.enabled = false;
 
-        if (!affectedPlayers.Any(p => p.IsMe))
-        {
-            SoundManager.Instance.PlaySound(earRing, false, 0.3f);
-        }
-
         yield return new WaitForSeconds(2f);
-        SoundManager.Instance.StopSound(earRing);
         UnityObject.Destroy(bomb);
         bombEnabled = false;
 
@@ -310,6 +304,7 @@ public class BomberRole : RoleBehaviour
     public override void OnAssign(PlayerControl player)
     {
         base.OnAssign(player);
+        explodeCooldown = KillCooldown * 2.5f;
         explodeTimer = explodeCooldown;
     }
 }
