@@ -269,10 +269,35 @@ public class BomberRole : RoleBehaviour
         yield break;
     }
 
+    /* Target Writing Example (Requires InnerNet namespace)
+    public void RpcSetPlayerScale(float scale, PlayerControl target)
+    {
+        if (AmongUsClient.Instance.AmClient)
+        {
+        SetPlayerScale(scale, target);
+        }
+
+        MessageWriter messageWriter = AmongUsClient.Instance.StartRpcImmediately(NetId, (byte)RpcCalls.SetPlayerScale, SendOption.Reliable);
+        messageWriter.Write(scale);
+        messageWriter.WriteNetObject(target);
+        AmongUsClient.Instance.FinishRpcImmediately(messageWriter);
+    }
+
+    public void SetPlayerScale(float scale, PlayerControl target)
+	{
+		target.transform.localScale = new Vector3(scale, scale, target.transform.localScale.z);
+	}
+    */
+
     public override void HandleRpc(MessageReader reader, int rpc)
     {
         switch ((RpcCalls)rpc)
         {
+            /* Target Handling Example (Requires InnerNet namespace)
+            case RpcCalls.SetPlayerScale:
+            SetPlayerScale(reader.ReadFloat(), reader.ReadNetObject());
+            break;
+            */
             case RpcCalls.CheckExplode:
             CheckExplode();
             break;
