@@ -32,6 +32,7 @@ public class DynamicCode
         Sprite explodeSprite = ImageUtils.LoadNewSprite(ModsManager.Instance.GetPathFromMod(Paths.folderName, "resources/images/explode.png"), 100f, SpriteMeshType.FullRect);
         RoleManager.Instance.AddSprite("explodeSprite", explodeSprite.texture, 720f);
 
+        RoleManager.Instance.AddRole<BlackmailerRole>();
         RoleManager.Instance.AddRole<BomberRole>();
 
         if (SceneManager.GetActiveScene().name == "MainMenu")

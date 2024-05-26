@@ -1,0 +1,266 @@
+This is the current class for rolebehaviour
+You can use it to determine events
+----------------------------------------------------
+----------------------------------------------------
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using static GameData;
+
+public class RoleBehaviour : MonoBehaviour
+{
+    public virtual string roleDisplayName => "Unknown";
+    public virtual string roleDescription => "NOVISOR";
+    public string roleCodeName = "";
+    [HideInInspector]
+    public int RoleChance = 100;
+    [HideInInspector]
+    public PlayerControl Player;
+    public virtual bool PreKillCheck => false;
+
+    public virtual bool IsAffectedByComms
+    {
+        get
+        {
+            return CommsSabotaged && RoleTeamType != RoleTeamTypes.Impostor;
+        }
+    }
+
+    public virtual bool ContributeToEndCheck
+    {
+        get
+        {
+            return (RoleTeamType == RoleTeamTypes.Neutral) && !Player.Data.IsDead;
+        }
+    }
+    public virtual string KillAbilityImageName
+    {
+        get
+        {
+            return "killSprite";
+        }
+    }
+
+    public virtual string KillAbilityName
+    {
+        get
+        {
+            string lang = TranslationController.Instance.CurrentLanguage.langName;
+            if (lang == "Português") return "MATAR";
+            return "KILL";
+        }
+    }
+
+    protected bool CommsSabotaged
+    {
+        get
+        {
+            return Player != null && PlayerTask.PlayerHasTaskOfType<IHudOverrideTask>(Player);
+        }
+    }
+
+    public Color TeamColor
+    {
+        get
+        {
+            if (RoleTeamType == RoleTeamTypes.Impostor)
+            {
+                return Palette.ImpostorRed;
+            }
+            else if (RoleTeamType == RoleTeamTypes.Neutral)
+            {
+                return Palette.NeutralClear;
+            }
+            return Palette.White;
+        }
+    }
+
+    public string RoleName
+    {
+        get
+        {
+            if (Enum.TryParse(roleDisplayName, out StringNames result))
+            {
+            return TranslationController.Instance.GetString(result);
+            }
+            return roleDisplayName;
+        }
+    }
+
+    public virtual bool DidWin(GameOverReason gameOverReason)
+    {
+        return false;
+    }
+
+    public virtual void OnMeetingCalled()
+    {
+    }
+
+    public virtual void OnVotingComplete()
+    {
+    }
+        
+    public virtual void OnVote(PlayerControl voteTarget)
+    { 
+    }
+
+    public virtual void OnVotedBy(PlayerControl voter)
+    { 
+    }
+
+    public virtual void OnWrapUp()
+    {
+    }
+
+    public virtual bool HideVote(PlayerVoteArea votedPlayer) => false;
+
+    public virtual void AddVisualVotes(ref List<PlayerVoteArea> statesList)
+    { 
+    }
+
+
+    public virtual void OnAssign(PlayerControl player)
+    {
+    Player = player;
+    player.Data.myRole = this;
+    }
+
+    public virtual void ConfigureRole()
+    {
+    }
+
+    public virtual float KillCooldown => PlayerControl.GameOptions.KillCooldown;
+
+    public virtual void OnGameStart()
+    {
+    }
+
+    public virtual void OnCoEndGame()
+    { 
+    }
+
+    public virtual void OnEnterVent(Vent vent)
+    { 
+    }
+
+    public virtual void OnCoEnterVent(int ventId)
+    { 
+    }
+
+    public virtual void OnExitVent(int ventId)
+    { 
+    }
+
+    public virtual void UpdateSystem(SystemTypes systemType, byte amount, PlayerControl player)
+    { 
+    }
+
+    public virtual bool OnCoEnterVentOthers(PlayerPhysics vented, int ventId) => vented == null;
+
+    public virtual bool CheckMurder(PlayerControl target)
+    {
+    return CanUseKillButton;
+    }
+
+    public virtual bool CheckMurderAsTarget()
+    {
+        return true;
+    }
+
+    public virtual bool OnCheckReportDeadBody(PlayerControl reporter, GameData.PlayerInfo deadBody, PlayerControl killer)
+    {
+        return true;
+    }
+
+    public virtual void OnReportDeadBody(PlayerControl target)
+    { 
+    }
+
+    public virtual void OnMurder(PlayerControl target)
+    {
+    }
+
+    public virtual void OnMurdered()
+    {
+    }
+
+    public virtual void OnExiled()
+    {
+    }
+
+    public virtual void HandleRpc(Hazel.MessageReader reader, int rpc)
+    {
+    }
+
+    public virtual void OnFixedUpdate()
+    {
+        SetTarget();
+    }
+
+    public virtual void SetTarget()
+    {
+        if (Player != null && !Player.AmOwner) return;
+        PlayerInfo data = Player.Data;
+        if (data.myRole != null && data.myRole.CanUseKillButton && Player.CanMove && !data.IsDead)
+        {
+            SetKillTimer(Player.KillTimer - Time.fixedDeltaTime);
+            PlayerControl target = Player.FindClosestTarget();
+            DestroyableSingleton<HudManager>.Instance.KillButton.SetTarget(target);
+        }
+        else
+        {
+            DestroyableSingleton<HudManager>.Instance.KillButton.SetTarget(null);
+        }
+    }
+
+    public void SetKillTimer(float time)
+    {
+        Player.killTimer = time;
+        if (KillCooldown > 0f)
+        {
+            DestroyableSingleton<HudManager>.Instance.KillButton.SetCoolDown(Player.killTimer, KillCooldown);
+        }
+        else
+        {
+            DestroyableSingleton<HudManager>.Instance.KillButton.SetCoolDown(0f, KillCooldown);
+        }
+    }
+
+    public RoleTeamTypes[] enemyTeams;
+
+    public RoleTeamTypes RoleTeamType = RoleTeamTypes.Crewmate;
+
+    public bool CanUseKillButton;
+
+    public bool CanSabotage;
+
+    public bool CanVent;
+
+    [HideInInspector]
+    public Dictionary<string, RoleOption> roleOptions;
+}
+
+public class RoleOption
+{
+    public string OptionName { get; set; }
+    public ValueTypes Value { get; set; }
+    public FloatRange floatRange { get; set; }
+
+    // Constructor
+    public RoleOption(string optionName, ValueTypes value, FloatRange floatRange)
+    {
+        OptionName = optionName;
+        Value = value;
+        this.floatRange = floatRange;
+    }
+}
+
+public enum ValueTypes
+{
+NumberSeconds,
+NumberCooldown,
+NumberVision,
+Bool,
+String,
+List, //TODO?() Add variables for a option.
+}
