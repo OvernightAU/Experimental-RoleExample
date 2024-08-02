@@ -7,7 +7,7 @@ This document provides a basic guide for using the mod template effectively. Ple
 ### Using Directives
 
 - **Only the first/default script file should have using directives.**
-  - The "first/default" script refers to the first one in "ScriptExecutionOrder" list in json
+  - The "first/default" script refers to the file named "Main.cs" in scripts folder.
 
 ### Roslyn Compiler Limitations
 
@@ -22,7 +22,7 @@ This document provides a basic guide for using the mod template effectively. Ple
 ### Mod Image Resolution
 
 - Ensure your mod image resolution is **512x512** pixels.
-  - If the image exceeds this resolution, it might not fit properly within the mod box.
+  - If the image exceeds this resolution, it will be automatically resized and might not look as expected.
 
 ### Loading Mod Assets
 
@@ -30,10 +30,9 @@ When loading mod assets, follow these guidelines:
 
 - **Use the Correct Path Method**:
   - Instead of using System.IO, use `ModsManager.Instance.GetPathFromMod(Paths.folderName, "insert path")` to get the path to your mod asset.
-  - This method is necessary because direct use of System.IO is not allowed.
 
 - **Reading Files**:
-  - You cannot use the `File` class to read the file bytes directly.
+  - This is just a wrapper for System.IO, you can still use System.IO along with ModsManager.Instance.GetPathFromMod without any issues at all.
   - To read a file as a string, use `ModsManager.Instance.ReadFromModSTR(Paths.folderName, "insert path")`.
   - To read a file as a byte array, use `ModsManager.Instance.ReadFromMod(Paths.folderName, "insert path")`.
 
