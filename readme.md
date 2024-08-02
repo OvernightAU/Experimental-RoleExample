@@ -29,7 +29,7 @@ This document provides a basic guide for using the mod template effectively. Ple
 When loading mod assets, follow these guidelines:
 
 - **Use the Correct Path Method**:
-  - Instead of using System.IO, use `ModsManager.Instance.GetPathFromMod(Paths.folderName, "insert path")` to get the path to your mod asset.
+  - Use `ModsManager.Instance.GetPathFromMod(Paths.folderName, "insert path")` to get the path to your mod asset.
 
 - **Reading Files**:
   - This is just a wrapper for System.IO, you can still use System.IO along with ModsManager.Instance.GetPathFromMod without any issues at all.
